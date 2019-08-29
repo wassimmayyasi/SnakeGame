@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d155bd2-167e-4416-817f-23dfde19e00b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/snake.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/snake.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/snake.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/snake.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,7 +63,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.SnakeGame">
+  <component name="RunManager" selected="Gradle.snakeskel [test1_3]">
     <configuration name="SnakeGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="snake.game.SnakeGame" />
       <module name="snake.main" />
@@ -73,23 +76,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="Tests in 'snake.main'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list />
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
     </configuration>
     <configuration name="snakeskel [submit]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
       <ExternalSystemSettings>
@@ -177,12 +163,10 @@
       <item itemvalue="Gradle.snakeskel [test1_3]" />
       <item itemvalue="JUnit.test1_3 no gradle" />
       <item itemvalue="JUnit.test1_1 no gradle" />
-      <item itemvalue="Gradle.Tests in 'snake.main'" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.SnakeGame" />
-        <item itemvalue="Gradle.Tests in 'snake.main'" />
       </list>
     </recent_temporary>
   </component>
@@ -211,7 +195,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
