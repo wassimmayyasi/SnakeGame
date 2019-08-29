@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7d155bd2-167e-4416-817f-23dfde19e00b" name="Default Changelist" comment="" />
+    <list default="true" id="7d155bd2-167e-4416-817f-23dfde19e00b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +28,12 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
@@ -38,6 +45,7 @@
   </component>
   <component name="ProjectId" id="1Q5jo5I20BTk7lBA6WV0ifnXlAb" />
   <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RunDashboard">
@@ -52,10 +60,10 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.snakeskel [test1_1]">
+  <component name="RunManager" selected="Application.SnakeGame">
     <configuration name="SnakeGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="snake.game.SnakeGame" />
-      <module name="oofp.main" />
+      <module name="snake.main" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="snake.game.*" />
@@ -65,6 +73,23 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="Tests in 'snake.main'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="snakeskel [submit]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
       <ExternalSystemSettings>
@@ -152,10 +177,12 @@
       <item itemvalue="Gradle.snakeskel [test1_3]" />
       <item itemvalue="JUnit.test1_3 no gradle" />
       <item itemvalue="JUnit.test1_1 no gradle" />
+      <item itemvalue="Gradle.Tests in 'snake.main'" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.SnakeGame" />
+        <item itemvalue="Gradle.Tests in 'snake.main'" />
       </list>
     </recent_temporary>
   </component>
@@ -178,5 +205,16 @@
       <updated>1567067522583</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
