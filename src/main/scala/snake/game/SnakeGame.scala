@@ -1,5 +1,4 @@
 // DO NOT MODIFY FOR BASIC SUBMISSION
-// scalastyle:off
 
 package snake.game
 
@@ -30,9 +29,11 @@ class SnakeGame extends GameBase {
     if (gameLogic.isGameOver) drawGameOverScreen()
   }
 
+  val DefaultTextSize = 20
+
   def drawGameOverScreen(): Unit = {
     setFillColor(Red)
-    drawTextCentered("GAME OVER!", 20, screenArea.center)
+    drawTextCentered("GAME OVER!", DefaultTextSize, screenArea.center)
   }
 
   def drawGrid(): Unit = {

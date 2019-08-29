@@ -2,10 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d155bd2-167e-4416-817f-23dfde19e00b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/snake.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/snake.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/snake.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/snake.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/scalastyle_config.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/engine/GameBase.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/engine/GameBase.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/engine/graphics/Color.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/engine/graphics/Color.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/engine/graphics/Point.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/engine/graphics/Point.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/engine/graphics/Rectangle.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/engine/graphics/Rectangle.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/engine/graphics/Triangle.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/engine/graphics/Triangle.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/engine/random/ListRandomGen.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/engine/random/ListRandomGen.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/engine/random/RandomGenerator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/engine/random/RandomGenerator.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/engine/random/ScalaRandomGen.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/engine/random/ScalaRandomGen.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/snake/game/Direction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/snake/game/Direction.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/snake/game/GridType.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/snake/game/GridType.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/snake/game/SnakeGame.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/snake/game/SnakeGame.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/test/GenericRecord.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/test/GenericRecord.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/test/snake/SnakeRecord.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/test/snake/SnakeRecord.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/test/snake/SnakeTestSuite.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/test/snake/SnakeTestSuite.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/test/snake/SnakeTests.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/test/snake/SnakeTests.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/test/util/StringUtils.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/test/util/StringUtils.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/test/util/TestRandomGen.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/test/util/TestRandomGen.scala" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

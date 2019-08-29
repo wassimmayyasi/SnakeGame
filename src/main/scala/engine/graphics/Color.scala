@@ -1,5 +1,4 @@
 // DO NOT MODIFY FOR BASIC SUBMISSION
-// scalastyle:off
 
 package engine.graphics
 // Color in red green blue, where each color value is in the range 0-255
