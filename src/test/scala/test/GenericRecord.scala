@@ -268,6 +268,7 @@ abstract class GenericRecord[
             if (frameIsCorrect) withHeader("Want & Got", frame.display.toString)
             else twoColumnTable("Want", "Got", frame.display.toString, actual.toString)
           println(frameString)
+          println()
 
         }
 

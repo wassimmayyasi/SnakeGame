@@ -66,7 +66,7 @@ object StringUtils {
                               height: Int,
                               pad: Char = ' '): Seq[String] = {
     val width = widthOfStringLines(lines)
-    val nrEmptyLines = (lines.length - height) max 0
+    val nrEmptyLines = (height - lines.length ) max 0
     val emptyLine = pad.toString * width
     val emptyLines = Seq.fill(nrEmptyLines)(emptyLine)
     lines ++ emptyLines
