@@ -35,9 +35,10 @@ object StringUtils {
   def horizontalLineOfWidth(width: Int, hlineChar: Char = '-'): String = hlineChar.toString * width
 
   def withHeader(header: String, content: String): String = {
-    val width = header.length max widthOfMultilineString(content)
+    val contentLines = multiLinesStringToLines(content)
+    val width = header.length max contentLines.length
     val hLine = horizontalLineOfWidth(width)
-    (header :+ hLine :+ content).mkString("\n")
+    (header +: hLine +: contentLines).mkString("\n")
   }
 
   def sideBySide(a: String, inbetween: String, b: String): String = a + inbetween + b
