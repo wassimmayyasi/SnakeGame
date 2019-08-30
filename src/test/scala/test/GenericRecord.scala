@@ -331,7 +331,7 @@ abstract class GenericRecord[
       println(f"Passed $nrPassedTests%d/$totalNrTests%d tests")
       println(s"${"="*resultStr.length}\n$resultStr\n${"="*resultStr.length}")
 
-      val initialCodeStyleGrade = percentage * CodeStylePoints
+      val initialCodeStyleGrade = (points/maxPoints) * CodeStylePoints
       println(f"(Initial code style points: $initialCodeStyleGrade%.2f)")
 
       writeGradeFile()
