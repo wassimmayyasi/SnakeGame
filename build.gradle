@@ -24,7 +24,7 @@ version '1.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-mainClassName = 'snake.game.SnakeGame'
+mainClassName='snake.game.SnakeGame'
 
 ext {
     scalaMajorVersion = '2.12'
@@ -134,3 +134,4 @@ task test1_3(type: Test) {
         includeTestsMatching "test.snake.SnakeTestsAssignment1_3"
     }
 }
+

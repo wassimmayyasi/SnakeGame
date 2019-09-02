@@ -7,7 +7,7 @@ import snake.logic.SnakeLogic._
 /** To implement Snake, complete the ``TODOs`` below.
   *
   * If you need additional files,
-  * please also put them in the ``snake.logic`` package.
+  * please also put them in the ``snake`` package.
   */
 class SnakeLogic(val randomGen: RandomGenerator,
                  val nrColumns: Int,
