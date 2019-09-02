@@ -1,4 +1,5 @@
 // DO NOT MODIFY FOR BASIC SUBMISSION
+// scalastyle:off
 
 package test.util
 
@@ -39,6 +40,7 @@ object StringUtils {
     val width = header.length max contentLines.length
     val hLine = horizontalLineOfWidth(width)
     (header +: hLine +: contentLines).mkString("\n")
+
   }
 
   def sideBySide(a: String, inbetween: String, b: String): String = a + inbetween + b

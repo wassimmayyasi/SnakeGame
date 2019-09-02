@@ -1,4 +1,5 @@
 // DO NOT MODIFY FOR BASIC SUBMISSION
+// scalastyle:off
 
 package test
 
@@ -8,7 +9,6 @@ import engine.random.RandomGenerator
 import test.util.{StringUtils, TestRandomGen}
 import test.util.StringUtils._
 import org.scalatest.{FunSuiteLike, Matchers}
-import test.util.CryptoUtils._
 
 /** Generic test infrastructure for Snake and Tetris.
   *
@@ -269,7 +269,6 @@ abstract class GenericRecord[
             else twoColumnTable("Want", "Got", frame.display.toString, actual.toString)
           println(frameString)
           println()
-
         }
 
         val ptsStr = if (passes) f"+$points%.2f Points" else "No Points"
@@ -311,31 +310,13 @@ abstract class GenericRecord[
     }
 
     def writePoints(nrPassedTests: Int, totalNrTests: Int, points: Double, maxPoints: Double, suiteName: String = "x.x"): Unit = {
-
-      def writeGradeFile(): Unit =
-        try {
-          val filename = s"grade_${suiteName.replace('.', '_')}.tmp"
-          val pointStr = s"grade $points"
-          val sig = sign(pointStr)
-
-          assert(verify(pointStr, sig))
-          using(new PrintWriter(new File(filename))) {
-            file => file.println(sig + "\n" + pointStr)
-          }
-        } catch {
-          case _: Any => ()
-        }
-
       val percentage = (points/maxPoints)*100
-
       val resultStr = f"Total Functionality Points : $points%.2f/$maxPoints%.2f [$percentage%.2f"+"%]"
       println(f"Passed $nrPassedTests%d/$totalNrTests%d tests")
       println(s"${"="*resultStr.length}\n$resultStr\n${"="*resultStr.length}")
 
       val initialCodeStyleGrade = (points/maxPoints) * CodeStylePoints
       println(f"(Initial code style points: $initialCodeStyleGrade%.2f)")
-
-      writeGradeFile()
     }
 
   }
