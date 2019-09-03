@@ -1,21 +1,8 @@
 # Snake Assignment | OO&FP
 
-We use Gradle as our build system. 
-
-## Getting Started in IntelliJ IDEA
-
-IDEA is smart enough to configure the Gradle project correctly.
-
-- To begin, ``File->Open...`` the downloaded/cloned skeleton 
-- A gradle icon should appear in your rightmost side tab bar
-    - All the tasks listed under ``Tasks`` there 
-    - Click on any one of them to run
-    - This will also add a 'play button' configuration to the top right toolbar
-
 ## ``gradlew`` | Using the Gradle Wrapper
 
-For other text editors or IDEs you may simply interact
-with Gradle through the command line.
+You can directly interact with Gradle through the command line.
 
 ### Running
 
@@ -23,7 +10,8 @@ with Gradle through the command line.
 
 ### Testing
 
-``./gradlew test``
+- ``./gradlew test1_1`` for assignment 1.1
+- ``./gradlew test1_3`` for assignment 1.3
 
 ## Handing In
 
@@ -33,4 +21,3 @@ with Gradle through the command line.
 - The zipped source file should be in the ``build`` directory
 - Please upload this zip to Canvas
 
-...
