@@ -3,6 +3,7 @@
 ## ``gradlew`` | Using the Gradle Wrapper
 
 You can directly interact with Gradle through the command line.
+On Windows, you may call the wrapper using ``gradlew <task>``, on Linux/maxOS ``./gradlew <task>``.
 
 ### Running
 
