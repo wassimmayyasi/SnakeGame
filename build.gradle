@@ -114,10 +114,10 @@ tasks.withType(Test) {
         events  TestLogEvent.FAILED,
                 TestLogEvent.PASSED,
                 TestLogEvent.STANDARD_OUT
-        exceptionFormat TestExceptionFormat.SHORT
-        showExceptions false
-        showCauses false
-        showStackTraces false
+        exceptionFormat TestExceptionFormat.FULL
+        showExceptions true
+        showCauses true
+        showStackTraces true
     }
 }
 

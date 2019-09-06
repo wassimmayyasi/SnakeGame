@@ -48,7 +48,7 @@ abstract class SnakeTestSuite extends TestSuite {
 class SnakeTestsAssignment1_1 extends SnakeTestSuite {
 
   val testList: List[Test] = mainTestList :+ testNoReverseMode
-  reportOnUniformlyScoreTests(testList, mainInterTestList, "1.1")
+  reportOnUniformlyScoredTests(testList, mainInterTestList, "1.1")
 }
 
 @RunWith(classOf[JUnitRunner])
@@ -63,5 +63,5 @@ class SnakeTestsAssignment1_3 extends SnakeTestSuite {
 
   val testList: List[Test] = mainTestList ++ reverseTests
 
-  reportOnUniformlyScoreTests(testList, mainInterTestList, "1.3")
+  reportOnUniformlyScoredTests(testList, mainInterTestList, "1.3")
 }

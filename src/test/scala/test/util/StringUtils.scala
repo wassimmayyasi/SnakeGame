@@ -3,6 +3,8 @@
 
 package test.util
 
+import java.io.{PrintWriter, StringWriter}
+
 // the generic code in this file is
 // currently used in the testing infrastructure
 object StringUtils {
@@ -103,4 +105,10 @@ object StringUtils {
       indentedLines.mkString("\n") + multilineStringQuote
   }
 
+  def stackTraceAsString(t: Throwable): String = {
+    val traceStr = new StringWriter
+    val printWriter = new PrintWriter(traceStr)
+    t.printStackTrace(printWriter)
+    traceStr.toString
+  }
 }

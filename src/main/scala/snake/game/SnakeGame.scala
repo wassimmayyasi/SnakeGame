@@ -75,7 +75,7 @@ class SnakeGame extends GameBase {
     drawRectangle(screenArea)
 
     for (y <- 0 until gameLogic.nrRows;
-      x <- 0 until gameLogic.nrColumns) {
+         x <- 0 until gameLogic.nrColumns) {
       drawCell(getCell(x, y), gameLogic.getGridTypeAt(x, y))
     }
 

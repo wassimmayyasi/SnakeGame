@@ -10,18 +10,18 @@ import test.util.{StringUtils, TestRandomGen}
 import test.util.StringUtils._
 import org.scalatest.{FunSuiteLike, Matchers}
 
-/** Generic test infrastructure for Snake and Tetris.
+/** Fair warning: this file is messy.
+  * Generic test infrastructure for Snake and Tetris.
   *
   * This supports a game with a grid, filled with some GridType
   * on which some actions can be done.
   *
   * An initial game can be constructed out of some InitialInfo
-  * For testing we perform the actions and check is the grid is the same
-  * as specified in the test.
+  * For testing we perform the actions and check is the grid
+  * is the same as specified in the test.
   */
 trait GridTypeInterface[T] {
   def conforms(rhs: T): Boolean
-
   def toChar: Char
 }
 
@@ -53,7 +53,8 @@ abstract class GenericRecord[
     def conforms(other: GameDisplay): Boolean
   }
 
-  case class GridDisplay(grid: Seq[Seq[GridType]]) extends GameDisplay {
+  case class GridDisplay(grid: Seq[Seq[GridType]])
+    extends GameDisplay {
 
     val nrRows: Int = grid.length
     val nrColumns: Int = grid.head.length
@@ -75,12 +76,11 @@ abstract class GenericRecord[
     def sameDimensions(rhs: GridDisplay): Boolean =
       nrRows == rhs.nrRows && nrColumns == rhs.nrColumns
 
-
     override def conforms(other: GameDisplay): Boolean =
       other match {
-        case GameOverDisplay() => false
         case g: GridDisplay => sameDimensions(g) && gridConforms(g.grid)
-    }
+        case _ => false
+      }
 
   }
 
@@ -91,8 +91,17 @@ abstract class GenericRecord[
     }
   }
 
-  case class FrameInput(randomNumber: Int, actions: Seq[GameAction])
+  case class LogicFailed(cause: Throwable) extends GameDisplay {
+    override def conforms(other: GameDisplay): Boolean = other match {
+      case LogicFailed(_) => true
+      case _ => false
+    }
 
+    override def toString: String =
+      "LogicFailed("+stackTraceAsString(cause)+")"
+  }
+
+  case class FrameInput(randomNumber: Int, actions: Seq[GameAction])
 
   case class TestFrame(input: FrameInput, display: GameDisplay) {
 
@@ -123,10 +132,13 @@ abstract class GenericRecord[
       )
     }
 
-    if (logic.isGameOver) GameOverDisplay()
-    else getGridDisplay(logic)
+    try {
+      if (logic.isGameOver) GameOverDisplay()
+      else getGridDisplay(logic)
+    } catch {
+      case e: Throwable => LogicFailed(e)
+    }
   }
-
 
   object TestFrame {
 
@@ -155,9 +167,13 @@ abstract class GenericRecord[
   def performActionsAndGetDisplay(random: TestRandomGen,
                                   logic: GameLogic,
                                   frameInput: FrameInput): GameDisplay = {
-    random.curNumber = frameInput.randomNumber
-    frameInput.actions.foreach(logic.performAction)
-    getDisplay(logic)
+    try {
+      random.curNumber = frameInput.randomNumber
+      frameInput.actions.foreach(logic.performAction)
+      getDisplay(logic)
+    } catch {
+      case e: Throwable => LogicFailed(e)
+    }
   }
 
   def checkInterleave(testA: Test, testB: Test): Boolean = {
@@ -167,30 +183,40 @@ abstract class GenericRecord[
     val logicA = makeGame(randomA, testA.initialInfo)
     val logicB = makeGame(randomB, testB.initialInfo)
 
-    if (!getDisplay(logicA).conforms(testA.referenceDisplays.head)
-    ||  !getDisplay(logicB).conforms(testB.referenceDisplays.head))
-      return false
-
     for ((a, b) <- testA.frames.tail.zip(testB.frames.tail)) {
-      val successA =
-        performActionsAndGetDisplay(randomA, logicA, a.input).conforms(a.display)
-      val successB =
-        performActionsAndGetDisplay(randomB, logicB, b.input).conforms(b.display)
-
+      val (da, db) = (performActionsAndGetDisplay(randomA, logicA, a.input),
+                      performActionsAndGetDisplay(randomB, logicB, b.input))
+      val (successA, successB) = (da.conforms(a.display), db.conforms(b.display))
+      (da, db) match {
+        case (LogicFailed(e), _) => throw e
+        case (_, LogicFailed(e)) => throw e
+        case _ => ()
+      }
       if (!successA || !successB) return false
-    } ; true
+    }; true
   }
 
   case class Test(name: String, initialInfo: InitialInfo, frames: Seq[TestFrame]) {
     lazy val referenceDisplays: Seq[GameDisplay] = frames.map(_.display)
 
+    // Gods of Scala... Forgive me for I have sinned...
     lazy val implementationDisplays: Seq[GameDisplay] = {
       val random = new TestRandomGen(frames.head.input.randomNumber)
-      val logic = makeGame(random, initialInfo)
-
-      getDisplay(logic) +:
-        frames.tail.map(frame =>
-          performActionsAndGetDisplay(random, logic, frame.input))
+      try {
+        val logic = makeGame(random, initialInfo)
+        var failDisp: GameDisplay = null
+        val displays = getDisplay(logic) +:
+          frames.tail.map {
+            f => performActionsAndGetDisplay(random, logic, f.input)
+          } takeWhile { // slice off all frames after logic fail
+            case disp@LogicFailed(_) =>
+              failDisp = disp ; false
+            case _ => true
+          }
+        if (failDisp != null) displays :+ failDisp else displays
+      } catch {
+        case e: Throwable => Seq(LogicFailed(e))
+      }
     }
 
     lazy val passes: Boolean =
@@ -206,7 +232,7 @@ abstract class GenericRecord[
 
     type GradedTest = (Test, Double)
     type InterTest = (String, Test, Test)
-    type GradedInterTest = (String, Test, Test,Double)
+    type GradedInterTest = (String, Test, Test, Double)
 
     val InterleaveFailMsg =
       s"""
@@ -218,7 +244,6 @@ abstract class GenericRecord[
          |we have two  $gameLogicName instances running in 'parallel', the test fails.
     """
 
-
     val PassStr = "[√] Pass"
     val FailStr = "[X] Fail"
 
@@ -228,35 +253,43 @@ abstract class GenericRecord[
     val FunctionalityPoints = 4
     val CodeStylePoints = 5
 
-    def reportOnUniformlyScoreTests(testList: List[Test] = Nil, mainInterTestList: List[InterTest] = Nil, suiteName : String) : Unit = {
-      val ((nrPassed,nrTests),(pts, maxPts)) = runUnformilyScoredTestsAndGetGrade(testList, mainInterTestList)
-      writePoints(nrPassed,nrTests,pts, maxPts, suiteName)
+    def reportOnUniformlyScoredTests(testList: List[Test] = Nil,
+                                     mainInterTestList: List[InterTest] = Nil,
+                                     suiteName: String): Unit = {
+      val ((nrPassed, nrTests), (pts, maxPts)) =
+        runUniformlyScoredTestsAndGetGrade(testList, mainInterTestList)
+      writePoints(nrPassed, nrTests, pts, maxPts, suiteName)
     }
 
-    def runUnformilyScoredTestsAndGetGrade(tests: List[Test] = Nil, interTests: List[InterTest] = Nil): ((Int,Int), (Double, Double)) = {
+    def runUniformlyScoredTestsAndGetGrade(tests: List[Test] = Nil,
+                                           interTests: List[InterTest] = Nil):
+    ((Int, Int), (Double, Double)) = {
       val nrTests = tests.length + interTests.length
-      val scorePerTest :Double = FunctionalityPoints.toDouble / nrTests.toDouble
+      val scorePerTest: Double = FunctionalityPoints.toDouble / nrTests.toDouble
+
       val testsWithScore : List[GradedTest] =
-        tests.map((_,scorePerTest))
+        tests.map((_, scorePerTest))
+
       val interTestsWithScore : List[GradedInterTest] =
-        interTests.map(p => (p._1, p._2, p._3,scorePerTest))
+        interTests.map(p => (p._1, p._2, p._3, scorePerTest))
+
       runTestsAndGetGrade(testsWithScore, interTestsWithScore)
     }
 
-
-    def runTestsAndGetGrade(gts: List[GradedTest] = Nil, gits: List[GradedInterTest] = Nil): ((Int,Int), (Double, Double)) = {
-      val ranTests : List[(Boolean,Double)] = gts.map(handleTest)  ++ gits.map(handleInterleaveTests)
+    def runTestsAndGetGrade(gts: List[GradedTest] = Nil,
+                            gits: List[GradedInterTest] = Nil): ((Int, Int), (Double, Double)) = {
+      val ranTests : List[(Boolean, Double)] = gts.map(handleTest) ++ gits.map(handleInterleaveTests)
       val nrPassed : Int = ranTests.count(_._1)
       val pts = ranTests.map(_._2).sum
       val maxPts = gts.map(_._2).sum +  gits.map(_._4).sum
-      ((nrPassed,ranTests.length), (pts,maxPts))
+      ((nrPassed, ranTests.length), (pts, maxPts))
     }
 
-    def handleTest(t: GradedTest): (Boolean,Double) = {
+    def handleTest(t: GradedTest): (Boolean, Double) = {
       val (theTest, points) = t
-      val passes = theTest.passes
+      val didPass = theTest.passes
 
-      lazy val handleAssertion: Boolean = {
+      lazy val passes: Boolean = {
         def actionsString(actions: Seq[GameAction]): String =
           "<" ++ actions.map(_.toString).mkString(", ") ++ ">"
 
@@ -267,49 +300,59 @@ abstract class GenericRecord[
           val frameString =
             if (frameIsCorrect) withHeader("Want & Got", frame.display.toString)
             else twoColumnTable("Want", "Got", frame.display.toString, actual.toString)
+
           println(frameString)
           println()
         }
 
-        val ptsStr = if (passes) f"+$points%.2f Points" else "No Points"
-        val headerString = s"${theTest.name} : ${if (passes) PassStr else FailStr} : $ptsStr"
+        val ptsStr = if (didPass) f"+$points%.2f Points" else "No Points"
+        val headerString = s"${theTest.name} : ${if (didPass) PassStr else FailStr} : $ptsStr"
         println(List.fill(headerString.length)("=").mkString + "\n" + headerString)
 
-        if (!passes) {
-          println("This is what went wrong:\n")
-        } else {
-          println("This is what we got & expected:\n")
-        }
+        if (!didPass) println("This is what went wrong:\n")
+        else println("This is what we got & expected:\n")
 
-        (theTest.frames, theTest.implementationDisplays, theTest.frames.indices)
-          .zipped.map(printTraceFrame)
-
-        passes
+        (theTest.frames, theTest.implementationDisplays,
+         theTest.frames.indices).zipped.map(printTraceFrame)
+        didPass
       }
 
-      test(theTest.name)(assert(handleAssertion))
-      val score= if (passes) points else 0
-      (passes,score)
+      test(theTest.name)(assert(passes))
+      val score = if (didPass) points else 0
+      (didPass, score)
     }
 
     def handleInterleaveTests(t: GradedInterTest): (Boolean, Double) = {
       val (name, testA, testB, points) = t
-      val passes = checkInterleave(testA, testB)
-
-      lazy val handleAssertion: Boolean = {
-        val message = s"Interleave Test: ${testA.name}, ${testB.name} : " +
-          s"${if (!passes) FailStr+" : No Points\n"+InterleaveFailMsg.stripMargin
-          else PassStr+f" : +$points%.2f Points"}"
-        println("="*StringUtils.widthOfMultilineString(message)+"\n"+message)
-        passes
+      var thrown: Throwable = null
+      val didPass = try {
+        checkInterleave(testA, testB)
+      } catch {
+        case e: Throwable =>
+          thrown = e
+          false
       }
 
-      test(name)(assert(handleAssertion))
-      val score= if (passes) points else 0
-      (passes,score)
+      lazy val passes: Boolean = {
+        val failMsg = if (thrown != null) stackTraceAsString(thrown)
+                      else InterleaveFailMsg.stripMargin
+        val message = s"Interleave Test: ${testA.name}, ${testB.name} : " +
+          s"${if (!didPass) FailStr+" : No Points\n"+failMsg
+              else PassStr+f" : +$points%.2f Points"}"
+        println("=" * StringUtils.widthOfMultilineString(message) + "\n" + message)
+        didPass
+      }
+
+      test(name)(assert(passes))
+      val score = if (didPass) points else 0
+      (didPass, score)
     }
 
-    def writePoints(nrPassedTests: Int, totalNrTests: Int, points: Double, maxPoints: Double, suiteName: String = "x.x"): Unit = {
+    def writePoints(nrPassedTests: Int,
+                    totalNrTests: Int,
+                    points: Double,
+                    maxPoints: Double,
+                    suiteName: String = "x.x"): Unit = {
       val percentage = (points/maxPoints)*100
       val resultStr = f"Total Functionality Points : $points%.2f/$maxPoints%.2f [$percentage%.2f"+"%]"
       println(f"Passed $nrPassedTests%d/$totalNrTests%d tests")

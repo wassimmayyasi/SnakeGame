@@ -1,5 +1,5 @@
 <scalastyle commentFilter="enabled">
-    <name>Scalastyle VU OOFP</name>
+    <name>ScalaStyle VU OOFP</name>
     <check level="warning" class="org.scalastyle.file.FileTabChecker" enabled="true" />
 
 
@@ -32,7 +32,7 @@
     <check enabled="true" class="org.scalastyle.scalariform.MethodLengthChecker" level="warning">
         <parameters>
             <parameter name="maxLength">15</parameter>
-            <parameter name="ignoreComments">false</parameter>
+            <parameter name="ignoreComments">true</parameter>
         </parameters>
     </check>
 
