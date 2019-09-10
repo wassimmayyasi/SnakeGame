@@ -19,6 +19,7 @@ abstract class SnakeTestSuite extends TestSuite {
     testMove,
     testIgnoreEatHead,
     testIgnoreEatHeadQuickSwitch,
+    testIgnoreEatHeadQuickSwitch2,
     testChangeDirs,
     testWrapAroundEast,
     testWrapAroundWest,

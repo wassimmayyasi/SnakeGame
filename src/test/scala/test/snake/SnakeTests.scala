@@ -104,6 +104,23 @@ object SnakeTests {
             |...^"""),
       ))
 
+  val testIgnoreEatHeadQuickSwitch2 =
+    SnakeTest("testQuickSwitch2",
+      List(
+        TestFrame(4,
+          """OO>.
+            |...A
+            |...."""),
+        TestFrame(4,
+          """.OO>
+            |...A
+            |...."""),
+        TestFrame(4, List(ChangeDir(West()), ChangeDir(North())),
+          """..OO
+            |...A
+            |...^"""),
+      ))
+
 
   val testChangeDirs =
     SnakeTest("testChangeDirs",

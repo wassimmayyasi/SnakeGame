@@ -1,5 +1,5 @@
 <scalastyle commentFilter="enabled">
-    <name>ScalaStyle VU OOFP</name>
+    <name>ScalSstyle VU OOFP</name>
     <check level="warning" class="org.scalastyle.file.FileTabChecker" enabled="true" />
 
 
