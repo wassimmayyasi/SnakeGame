@@ -116,17 +116,10 @@ abstract class GenericRecord[
   }
 
 
-  def nonBuggyIteratorToList(it : Iterator[String]) : List[String] = {
-    if(it.hasNext) {
-      it.next +: nonBuggyIteratorToList(it)
-    } else {
-      List()
-    }
-  }
 
   def gridString(s: String): GridDisplay = {
     GridDisplay(
-      for (row <- nonBuggyIteratorToList(s.stripMargin.lines))
+      for (row <- s.stripMargin.linesIterator.toList)
         yield for (char <- row)
           yield charToGridType(char)
     )
