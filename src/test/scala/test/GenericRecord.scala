@@ -117,7 +117,7 @@ abstract class GenericRecord[
 
   def gridString(s: String): GridDisplay = {
     GridDisplay(
-      for (row <- s.stripMargin.lines.to[collection.immutable.Seq])
+      for (row <- s.stripMargin.lines.toList)
         yield for (char <- row.toList)
           yield charToGridType(char)
     )
